@@ -4,21 +4,7 @@ import { PlayList, MusicPicker } from './components';
 function App() {
   const [musicList, setMusicList] = useState([]);
   const [musicListDisplay, setMusicListDisplay] = useState([]);
-
-  /*function filterHandler() {
-    if (status === 'all') {
-      setTodosDisplay(todos);
-    } else if (status === 'completed') {
-      setTodosDisplay(todos.filter(cur=>(cur.completed === true)));
-    } else if (status === 'uncompleted') {
-      setTodosDisplay(todos.filter(cur=>(cur.completed === false)));
-    }
-  }
-
-  useEffect(()=>{
-    filterHandler();
-  }, [todos, status])
-*/
+  
   return (
     <div className="App">
       <MusicPicker musicList={musicList} setMusicList={setMusicList} />
@@ -26,6 +12,8 @@ function App() {
       <div className="align-center">
         <br></br><br></br>
         Random Music Picker React (wingyuen2022)
+		<br>
+		<a src="https://docs.genius.com/" target="_blank">Genius API</a>
       </div>
     </div>
   );
