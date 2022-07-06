@@ -23,6 +23,10 @@ function App() {
     <div className="App">
       <MusicPicker musicList={musicList} setMusicList={setMusicList} />
       <PlayList musicList={musicList} setMusicList={setMusicList}/>
+      <div className="align-center">
+        <br></br><br></br>
+        Random Music Picker React (wingyuen2022)
+      </div>
     </div>
   );
 }
