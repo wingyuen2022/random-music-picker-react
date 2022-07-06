@@ -13,7 +13,7 @@ function App() {
         <br></br><br></br>
         Random Music Picker React (wingyuen2022)
 		<br>
-		<a src="https://docs.genius.com/" target="_blank">Genius API</a>
+		<a href="https://docs.genius.com/" target="_blank">Genius API</a>
       </div>
     </div>
   );
