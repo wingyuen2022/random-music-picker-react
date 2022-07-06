@@ -9,12 +9,8 @@ function App() {
     <div className="App">
       <MusicPicker musicList={musicList} setMusicList={setMusicList} />
       <PlayList musicList={musicList} setMusicList={setMusicList}/>
-      <div className="align-center">
-        <br></br><br></br>
-        Random Music Picker React (wingyuen2022)
-		<br></br>
-		<a href="https://docs.genius.com/" target="_blank">Genius API</a>
-      </div>
+      <div className="align-center"><br></br>Random Music Picker React (wingyuen2022)</div>
+	  <div className="align-center"><br></br><b>Powered by: <a href="https://docs.genius.com/" target="_blank">Genius API</a></b></div>
     </div>
   );
 }
