@@ -1,13 +1,24 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react';
 import MusicItem from '../MusicItem';
+import { MusicContext } from '../MusicContext/MusicContext';
 
-function PlayList({musicList, setMusicList}) {
+const PlayList = () => {
+  const { curList } = useContext(MusicContext);
+
+  const renderRows = () => {
+    return curList.map((cur) => (<tr> <MusicItem isList={true} curSong={cur}/> </tr>));
+  }
+
+  useEffect(() => {
+    renderRows();
+  }, [curList]);
+
   return (
-    <div className="todo-container">
-        <table className='table-style'>
-            {musicList.map((curSong) => (<tr> <MusicItem isList={true} curSong={curSong} musicList={musicList} setMusicList={setMusicList}/> </tr>))}
-        </table>
-    </div>
+    <>
+      <table className='table-style'>
+        { renderRows() }
+      </table>
+    </>
   );
 }
 

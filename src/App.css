@@ -162,12 +162,20 @@ select {
     text-decoration: none;
 }
 
+.image-td {
+    width: 250px;
+}
+
 .player {
     background: white;
-    width: 230px;
+    width: 600px;
     height: 50px;
 }
 
 .table-style {
-    width: 1500px;
+    width: 1000px;
+}
+
+.extend-spacing{
+    justify-content: space-between;
 }
