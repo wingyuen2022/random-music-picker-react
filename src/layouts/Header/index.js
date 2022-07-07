@@ -6,9 +6,9 @@ function Header() {
         <>
             <nav>
                 <form>
-                <button className="todo-button"><Link to="/"><h2>Home</h2></Link></button>
-                <button className="todo-button"><Link to="/search"><h2>Search</h2></Link></button>
-                <button className="todo-button"><Link to="/playlist"><h2>Playlist</h2></Link></button>
+                <Link className="custom-button" to="/"><h2>Home</h2></Link>
+                <Link className="custom-button" to="/random"><h2>Random</h2></Link>
+                <Link className="custom-button" to="/playlist"><h2>Playlist</h2></Link>
                 </form>
             </nav>
         </>

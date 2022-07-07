@@ -1,7 +1,7 @@
 import React from 'react';
 import MusicPicker from '../../components/MusicPicker';
 
-const Search = () => {
+const Random = () => {
     return (<MusicPicker />);
 };
-export default Search;
+export default Random;

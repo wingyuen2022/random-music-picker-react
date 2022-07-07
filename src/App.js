@@ -12,8 +12,8 @@ const App = () => {
         <div className="App">
           <Layout />
           <Routes>
-            <Route path="/" element={<Pages.Search />} />
-            <Route path="search" element={<Pages.Search />} />
+            <Route path="/" element={<Pages.Random />} />
+            <Route path="random" element={<Pages.Random />} />
             <Route path="playlist" element={<Pages.Playlist />} />
             <Route path="*" element={<Pages.NotFound />} />
           </Routes>

@@ -33,9 +33,9 @@ const Playlist = () => {
                     <tr>
                         <td>
                             <div className="align-center">
-                                <button onClick={()=>savePlayList()} className="todo-button"><h2>Save to lsit</h2></button>
-                                <button onClick={()=>loadPlayList()} className="todo-button"><h2>Load from list</h2></button>
-                                <button onClick={()=>clearPlayList()} className="todo-button"><h2>Clear your list</h2></button>
+                                <button className="custom-button" onClick={()=>savePlayList()}>‣ Save to lsit</button>
+                                <button className="custom-button" onClick={()=>loadPlayList()}>‣ Load from list</button>
+                                <button className="custom-button" onClick={()=>clearPlayList()}>‣ Clear your list</button>
                             </div>
                         </td>
                     </tr>

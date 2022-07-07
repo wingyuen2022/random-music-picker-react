@@ -11,7 +11,7 @@ function MusicItem({isList, curSong}) {
   }
 
   const deleteSong = (targetSong) => {
-    setCurList(curList.filter((el) => (el.id !== targetSong.id)))
+    setCurList(curList.filter((cur) => (cur.id !== targetSong.id)))
   }
   
   return (
@@ -23,8 +23,8 @@ function MusicItem({isList, curSong}) {
         <iframe src={curSong.musicUrl} className="player" hidden={(curSong.id===undefined)}></iframe>
       </td>
       <td>
-        <button onClick={()=>addSong(curSong)} className="todo-button" hidden={isList || curSong.id === undefined}><h2>[ADD]</h2></button>
-        <button onClick={()=>deleteSong(curSong)} className="todo-button" hidden={!isList}><h2>[DEL]</h2></button>
+        <button onClick={()=>addSong(curSong)} className="custom-button" hidden={isList || curSong.id === undefined}>ADD</button>
+        <button onClick={()=>deleteSong(curSong)} className="custom-button" hidden={!isList}>DEL</button>
       </td>
     </>
   )

@@ -40,6 +40,11 @@ function MusicPicker() {
             let coverArt = song.song_art_image_url;
             let infoUrl = song.description_annotation.url;
             let musicUrl = song.apple_music_player_url;
+            let year = song.release_date;
+            if (year !== null) {
+              year = year.substring(0, 4);
+              titleDisplay = titleDisplay + " ( " + year + " ) ";
+            }
             let songObject = {
               id: id,
               title: title,
@@ -48,6 +53,7 @@ function MusicPicker() {
               img: coverArt,
               infoUrl: infoUrl,
               musicUrl: musicUrl,
+              year: year,
               random: rand
             };
             resolve(songObject);
@@ -84,7 +90,7 @@ function MusicPicker() {
   return (
     <>
     <form>
-      <button onClick={pickRandomMusic} className="todo-button">FEEL LUCKY</button>
+      <button onClick={pickRandomMusic} className="todo-button">I FEEL LUCKY</button>
     </form>
     <div className="align-center">
       <table width="1000px">
