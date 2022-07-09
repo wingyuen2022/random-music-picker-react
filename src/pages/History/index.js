@@ -5,7 +5,7 @@ import { MusicContext } from '../../components/MusicContext/MusicContext';
 const History = () => {
     const historyLocalstorageName = "history-list";
 
-    const { setHistory } = useContext(MusicContext);
+    const { history, setHistory } = useContext(MusicContext);
 
     useEffect(()=>{
         // Load history
@@ -34,7 +34,7 @@ const History = () => {
                 <table>
                     <tr>
                         <td>
-                            <button className="custom-button" onClick={()=>downloadHistory()}>‣ Download history</button>
+                            <button className="custom-button" onClick={()=>downloadHistory()}>‣ Download history ({ history.length })</button>
                         </td>
                     </tr>
                     <tr>
