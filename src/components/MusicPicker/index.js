@@ -4,7 +4,7 @@ import MusicItem from '../MusicItem';
 import { MusicContext } from '../MusicContext/MusicContext';
 
 function MusicPicker() {
-  const {curSong, setCurSong, curHistory, setHistory } = useContext(MusicContext);
+  const {curSong, setCurSong } = useContext(MusicContext);
 
   async function pickRandomMusic(e) {
     e.preventDefault();

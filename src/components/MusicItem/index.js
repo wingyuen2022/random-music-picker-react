@@ -2,16 +2,25 @@ import React, { useContext } from 'react';
 import { MusicContext } from '../MusicContext/MusicContext';
 
 function MusicItem({allowAdd, allowDel, curSong}) {
-  const {curList, setCurList} = useContext(MusicContext);
+  const historyLocalstorageName = "history-list";
+
+  const {history, setHistory} = useContext(MusicContext);
   
   const addSong = (targetSong) => {
-    if (!curList.find(cur => cur.id === targetSong.id)) {
-      setCurList([ ...curList, targetSong ]);  
+    if (!history.find(cur => cur.id === targetSong.id)) {
+      setHistory([ ...history, targetSong ]);  
     }
   };
 
   const deleteSong = (targetSong) => {
-    setCurList(curList.filter((cur) => (cur.id !== targetSong.id)))
+    if (window.confirm("Delete [ " + targetSong.titleDisplay + " ] ?")) {
+      const newHistoryList = history.filter((cur) => (cur.id !== targetSong.id));
+      // Save song to history list
+      setHistory(newHistoryList);
+      // Save song to localstorage
+      localStorage.setItem(historyLocalstorageName, JSON.stringify(newHistoryList));
+      alert("Deleted");
+    }
   };
 
   return (

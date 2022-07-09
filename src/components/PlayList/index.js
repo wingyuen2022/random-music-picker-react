@@ -3,10 +3,10 @@ import MusicItem from '../MusicItem';
 import { MusicContext } from '../MusicContext/MusicContext';
 
 const PlayList = () => {
-  const { curList } = useContext(MusicContext);
+  const { curList, setCurList } = useContext(MusicContext);
 
   const renderRows = () => {
-    return curList.map((cur) => (<tr key={cur.id}><MusicItem allowAdd={false} allowDel={true} curSong={cur}/></tr>));
+    return curList.map((cur) => (<tr key={cur.id}><MusicItem allowAdd={false} allowDel={true} curSong={cur} /></tr>));
   }
 
   useEffect(() => {

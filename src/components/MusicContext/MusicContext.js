@@ -6,7 +6,7 @@ export const MusicProvider = (props) => {
     const historyLocalstorageName = "history-list";
 
     const [curList, setCurList] = useState([]);
-    const [curHistory, setHistory] = useState([]);
+    const [history, setHistory] = useState([]);
     const [curSong, setCurSong] = useState({});
 
     useEffect(()=>{
@@ -14,11 +14,11 @@ export const MusicProvider = (props) => {
         if (curSong !== undefined && 
                 curSong !== null && 
                 curSong.id !== undefined &&
-                curHistory !== undefined &&
-                curHistory !== null) {
-            if (!curHistory.find(cur => cur.id === curSong.id)) {
+                history !== undefined &&
+                history !== null) {
+            if (!history.find(cur => cur.id === curSong.id)) {
                 console.log(curSong);
-                const newHistoryList = [ ...curHistory, curSong ];
+                const newHistoryList = [ ...history, curSong ];
                 // Save song to history list
                 setHistory(newHistoryList);
                 // Save song to localstorage
@@ -36,7 +36,7 @@ export const MusicProvider = (props) => {
     }, [curSong]);
 
     return (
-        <MusicContext.Provider value={{curSong, setCurSong, curList, setCurList, curHistory, setHistory}}>
+        <MusicContext.Provider value={{curSong, setCurSong, curList, setCurList, history, setHistory}}>
             { props.children }
         </MusicContext.Provider>
     );
