@@ -8,8 +8,8 @@
 
 - Pick a random music to play
     - Play music via Apple Music Player
-    - Add music to localstorage(cookies) automatically
+    - Add music to localstorage automatically
 - History
-    - Load history from localstorage(cookies)
+    - Load history from localstorage
     - Play music via Apple Music Player
     - Download history as JSON file
