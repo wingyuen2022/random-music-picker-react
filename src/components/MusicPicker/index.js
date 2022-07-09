@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from 'react';
-import Invert from 'invert-color';
+import React, { useContext, useEffect } from 'react'
 import MusicItem from '../MusicItem';
+import { getBackgroundCSSColor, getTextCSSColor } from '../../util/color.js';
 import { MusicContext } from '../MusicContext/MusicContext';
 
-function MusicPicker() {
+const MusicPicker = () => {
   const {curSong, setCurSong } = useContext(MusicContext);
 
   async function pickRandomMusic(e) {
@@ -124,18 +124,9 @@ function MusicPicker() {
   });
 
   useEffect(()=>{
-    let r = Math.round((curSong.random*3)*256);
-    let g = Math.round((curSong.random*5)*256);
-    let b = Math.round((curSong.random*7)*256);
-    if (r > 256) {r = r % 256;}
-    if (g > 256) {g = g % 256;}
-    if (b > 256) {b = b % 256;}
-    document.body.style.background = `rgb(${r}, ${g}, ${b})`;
-    let hex = Invert([r,g,b]);
-    r = parseInt( hex.substring( 1, 3 ), 16 );
-    g = parseInt( hex.substring( 3, 5 ), 16 );
-    b = parseInt( hex.substring( 5, 7 ), 16 );
-    document.body.style.color = `rgb(${r}, ${g}, ${b})`;
+    const rand = curSong.random;
+    document.body.style.background = getBackgroundCSSColor(rand, false);
+    document.body.style.color = getTextCSSColor(rand);
   }, [curSong]);
 
   return (
