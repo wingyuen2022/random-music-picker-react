@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { MusicContext } from '../MusicContext/MusicContext';
 
-function MusicItem({isList, curSong}) {
+function MusicItem({allowAdd, allowDel, curSong}) {
   const {curList, setCurList} = useContext(MusicContext);
   
   const addSong = (targetSong) => {
@@ -16,15 +16,15 @@ function MusicItem({isList, curSong}) {
 
   return (
     <>
-      <td className="image-td"><a href={ curSong.infoUrl } target="_blank"><img src={curSong.img} width="175px" alt={curSong.title}></img></a></td>
+      <td className="image-td"><a href={ `https://genius.com/${ curSong.infoId }` } target="_blank"><img src={curSong.img} width="175px" alt={curSong.title}></img></a></td>
       <td>
         <h1>{curSong.titleDisplay}</h1>
         <p>{curSong.album}</p>
-        <iframe id={ curSong.id } class="player" src={ curSong.musicUrl } hidden={ curSong.apple_music_id === null || curSong.apple_music_id === undefined }></iframe>
+        <iframe id={ curSong.id } class="player" src={ `https://genius.com/songs/${ curSong.id }/apple_music_player` } hidden={ curSong.apple_music_id === null || curSong.apple_music_id === undefined }></iframe>
       </td>
       <td>
-        <button onClick={()=>addSong(curSong)} className="custom-button" hidden={isList || curSong.id === undefined}>ADD</button>
-        <button onClick={()=>deleteSong(curSong)} className="custom-button" hidden={!isList}>DEL</button>
+        <button onClick={()=>addSong(curSong)} className="custom-button" hidden={!allowAdd || curSong.id === undefined}>Add</button>
+        <button onClick={()=>deleteSong(curSong)} className="custom-button" hidden={!allowDel}>Del</button>
       </td>
     </>
   )

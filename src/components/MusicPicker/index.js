@@ -4,17 +4,19 @@ import MusicItem from '../MusicItem';
 import { MusicContext } from '../MusicContext/MusicContext';
 
 function MusicPicker() {
-  const {curSong, setCurSong} = useContext(MusicContext);
+  const {curSong, setCurSong, curHistory, setHistory } = useContext(MusicContext);
 
   async function pickRandomMusic(e) {
     e.preventDefault();
     await getOnePlayableSongs().then((playableSongs)=>{
       console.log(playableSongs);
       wait1Second().then(()=>{
-        if (playableSongs[0] !== null) {
-          setCurSong(playableSongs[0]);
+        const firstSong = playableSongs[0];
+        if (firstSong !== undefined && firstSong !== null) {
+          console.log(firstSong);
+          setCurSong(firstSong);
         } else {
-          console.log("Try 5 times");
+          alert("No luck, please try again!");
         }
       });
     }).catch((err)=>{
@@ -24,7 +26,7 @@ function MusicPicker() {
   };
 
   const wait1Second = async() => {
-    return new Promise(resolve => setTimeout(resolve, 1000));
+    return new Promise(resolve => setTimeout(resolve, 1500));
   };
 
   const getOnePlayableSongs = () => {
@@ -89,8 +91,7 @@ function MusicPicker() {
               album = curSong.album.full_title;
             }
             let coverArt = curSong.song_art_image_url;
-            let infoUrl = curSong.description_annotation.url;
-            let musicUrl = curSong.apple_music_player_url;
+            let infoId = curSong.description_annotation.id;
             let year = curSong.release_date;
             if (year !== null) {
               year = year.substring(0, 4);
@@ -99,12 +100,11 @@ function MusicPicker() {
             let newSongObject = {
               id: id,
               apple_music_id: apple_music_id,
+              infoId: infoId,
               title: title,
               titleDisplay: titleDisplay,
               album: album,
               img: coverArt,
-              infoUrl: infoUrl,
-              musicUrl: musicUrl,
               year: year,
               random: rand
             };
@@ -146,7 +146,7 @@ function MusicPicker() {
     <div className="align-center">
       <table width="1000px">
         <tr>
-          <MusicItem isList={false} curSong={curSong} />
+          <MusicItem allowAdd={false} allowDel={false} curSong={curSong} />
         </tr>
       </table>
     </div>

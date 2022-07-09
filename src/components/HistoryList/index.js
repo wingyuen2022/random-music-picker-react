@@ -2,16 +2,16 @@ import React, { useContext, useEffect } from 'react';
 import MusicItem from '../MusicItem';
 import { MusicContext } from '../MusicContext/MusicContext';
 
-const PlayList = () => {
-  const { curList } = useContext(MusicContext);
+const HistoryList = () => {
+  const { curHistory } = useContext(MusicContext);
 
   const renderRows = () => {
-    return curList.map((cur) => (<tr key={cur.id}><MusicItem allowAdd={false} allowDel={true} curSong={cur}/></tr>));
+    return curHistory.map((cur) => (<tr key={cur.id}><MusicItem allowAdd={false} allowDel={false} curSong={cur}/></tr>));
   }
 
   useEffect(() => {
     renderRows();
-  }, [curList]);
+  }, [curHistory]);
 
   return (
     <>
@@ -22,4 +22,4 @@ const PlayList = () => {
   );
 }
 
-export default PlayList;
+export default HistoryList;
