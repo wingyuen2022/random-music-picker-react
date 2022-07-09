@@ -8,17 +8,46 @@ function MusicPicker() {
 
   async function pickRandomMusic(e) {
     e.preventDefault();
-    let rand = Math.random();
-    getARandomMusic(rand).then((song)=>{
-      setCurSong(song);
-    }).catch((err) => {
+    await getOnePlayableSongs().then((playableSongs)=>{
+      console.log(playableSongs);
+      wait1Second().then(()=>{
+        if (playableSongs[0] !== null) {
+          setCurSong(playableSongs[0]);
+        } else {
+          console.log("Try 5 times");
+        }
+      });
+    }).catch((err)=>{
       console.log(err);
     });
     return;
-  }
+  };
 
-  const getARandomMusic = (rand) => {
+  const wait1Second = async() => {
+    return new Promise(resolve => setTimeout(resolve, 1000));
+  };
+
+  const getOnePlayableSongs = () => {
     return new Promise((resolve, reject) => {
+      let playableSongs = [];
+      let promises = [];
+      for (let index = 0; index < 7; index++) {
+        let rand = Math.random();
+        promises.push(getASong(rand));
+      }
+      Promise.all(promises.map((curPromise)=>curPromise.catch((err)=>err)));
+      //console.log(promises);
+      promises.map((curPromise)=>{
+        curPromise.then((curSong)=>{
+          playableSongs.push(curSong);
+        }).catch((err)=>err);
+      });
+      resolve(playableSongs);
+    });
+  };
+
+  const getASong = (rand) => new Promise((resolve, reject) => {
+    const newSong = new Promise((resolve, reject) => {
       try {
         const APISong = "https://api.genius.com/songs/";
         let songID = Math.round(rand*200000);
@@ -27,26 +56,49 @@ function MusicPicker() {
         fetch(url).then((res)=>res.json()).then((data)=>{
           if (data.meta.status === 200) {
             let song = data.response.song;
-            let id = song.id;
-            let title = song.full_title;
+            let apple_music_id = song.apple_music_id;
+            if (apple_music_id !== undefined && apple_music_id !== null) {
+              resolve(song);
+            } else {
+              reject("apple_music_id is null");
+            }
+          } else {
+            reject("Status: " + data.meta.status + " with songID: " + songID);
+          }
+        });
+      } catch(err) {
+        reject(err);
+      }
+    });
+    newSong.then((curSong)=>{
+      //console.log("Has apple music ID: " + curSong.apple_music_id);
+      try {
+        const apple_music_id = curSong.apple_music_id;
+        const url = `https://itunes.apple.com/lookup?entity=song&id=${apple_music_id}`;
+        fetch(url).then((res)=>res.json()).then((res)=>{
+          let list = res.results;
+          if (list !== undefined && list !== null && typeof list === 'object' && list.length > 0) {
+            let id = curSong.id;
+            let title = curSong.full_title;
             let titleDisplay = title;
             if (titleDisplay.length > 50) {
               titleDisplay = titleDisplay.substring(0, 50) + "...";
             }
             let album = "";
-            if (song.album !== null) {
-              album = song.album.full_title;
+            if (curSong.album !== null) {
+              album = curSong.album.full_title;
             }
-            let coverArt = song.song_art_image_url;
-            let infoUrl = song.description_annotation.url;
-            let musicUrl = song.apple_music_player_url;
-            let year = song.release_date;
+            let coverArt = curSong.song_art_image_url;
+            let infoUrl = curSong.description_annotation.url;
+            let musicUrl = curSong.apple_music_player_url;
+            let year = curSong.release_date;
             if (year !== null) {
               year = year.substring(0, 4);
               titleDisplay = titleDisplay + " ( " + year + " ) ";
             }
-            let songObject = {
+            let newSongObject = {
               id: id,
+              apple_music_id: apple_music_id,
               title: title,
               titleDisplay: titleDisplay,
               album: album,
@@ -56,16 +108,20 @@ function MusicPicker() {
               year: year,
               random: rand
             };
-            resolve(songObject);
+            resolve(newSongObject);
           } else {
-            reject("Status: " + data.meta.status + " with songID: " + songID);
+            reject("Not found in iTune");
           }
+        }).catch((err)=>{
+          reject(err);
         });
       } catch(err) {
         reject(err);
       }
+    }).catch((err)=>{
+      reject(err);
     });
-  }
+  });
 
   useEffect(()=>{
     let r = Math.round((curSong.random*3)*256);
@@ -80,12 +136,7 @@ function MusicPicker() {
     g = parseInt( hex.substring( 3, 5 ), 16 );
     b = parseInt( hex.substring( 5, 7 ), 16 );
     document.body.style.color = `rgb(${r}, ${g}, ${b})`;
-    renderRow();
   }, [curSong]);
-
-  const renderRow = () => {
-    return (<MusicItem isList={false} curSong={curSong} />);
-  };
 
   return (
     <>
@@ -95,7 +146,7 @@ function MusicPicker() {
     <div className="align-center">
       <table width="1000px">
         <tr>
-          { renderRow() }
+          <MusicItem isList={false} curSong={curSong} />
         </tr>
       </table>
     </div>

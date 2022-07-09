@@ -6,7 +6,7 @@ const PlayList = () => {
   const { curList } = useContext(MusicContext);
 
   const renderRows = () => {
-    return curList.map((cur) => (<tr> <MusicItem isList={true} curSong={cur}/> </tr>));
+    return curList.map((cur) => (<tr key={cur.id}><MusicItem isList={true} curSong={cur}/></tr>));
   }
 
   useEffect(() => {
