@@ -3,12 +3,13 @@ import React, { createContext, useState, useEffect } from 'react';
 export const MusicContext = createContext();
 
 export const MusicProvider = (props) => {
-    const historyLocalstorageName = "history-list";
+    //const historyLocalstorageName = "history-list";
 
-    const [curList, setCurList] = useState([]);
+    const [random, setRandom] = useState([]);
+    const [playlist, setPlaylist] = useState([]);
     const [history, setHistory] = useState([]);
-    const [curSong, setCurSong] = useState({});
 
+    /*
     useEffect(()=>{
         // Save to history
         if (curSong !== undefined && 
@@ -17,7 +18,6 @@ export const MusicProvider = (props) => {
                 history !== undefined &&
                 history !== null) {
             if (!history.find(cur => cur.id === curSong.id)) {
-                console.log(curSong);
                 const newHistoryList = [ ...history, curSong ];
                 // Save song to history list
                 setHistory(newHistoryList);
@@ -34,9 +34,9 @@ export const MusicProvider = (props) => {
             setHistory(history);
         }
     }, [curSong]);
-
+    */
     return (
-        <MusicContext.Provider value={{curSong, setCurSong, curList, setCurList, history, setHistory}}>
+        <MusicContext.Provider value={{random, setRandom, playlist, setPlaylist, history, setHistory}}>
             { props.children }
         </MusicContext.Provider>
     );

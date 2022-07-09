@@ -6,10 +6,11 @@
 
 ## Feature
 
-- Pick a random music to play
+- Pick at least one random music from Genius
     - Play music via Apple Music Player
-    - Add music to localstorage automatically
-- History
-    - Load history from localstorage
+    - Add music to playlist
+- Playlist
+    - Load playlist from localstorage
     - Play music via Apple Music Player
-    - Download history as JSON file
+    - Remove music from localstorage
+    - Download playlist as JSON file

@@ -14,7 +14,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Pages.Random />} />
             <Route path="random" element={<Pages.Random />} />
-            <Route path="history" element={<Pages.History />} />
+            <Route path="playlist" element={<Pages.Playlist />} />
             <Route path="*" element={<Pages.NotFound />} />
           </Routes>
           <div className="align-center"><br></br>Random Music Picker React (wingyuen2022)</div>
@@ -25,6 +25,6 @@ const App = () => {
   );
 }
 
-// <Route path="playlist" element={<Pages.Playlist />} />
+// <Route path="history" element={<Pages.History />} />
 
 export default App;

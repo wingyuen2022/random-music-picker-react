@@ -4,17 +4,19 @@ import { getBackgroundCSSColor, getTextCSSColor } from '../../util/color.js';
 import { MusicContext } from '../MusicContext/MusicContext';
 
 const MusicPicker = () => {
-  const {curSong, setCurSong } = useContext(MusicContext);
+  const {random, setRandom } = useContext(MusicContext);
+
+  const wait1Second = async() => {
+    return new Promise(resolve => setTimeout(resolve, 1500));
+  };
 
   async function pickRandomMusic(e) {
     e.preventDefault();
-    await getOnePlayableSongs().then((playableSongs)=>{
+    await getPlayableSongs().then((playableSongs)=>{
       console.log(playableSongs);
       wait1Second().then(()=>{
-        const firstSong = playableSongs[0];
-        if (firstSong !== undefined && firstSong !== null) {
-          console.log(firstSong);
-          setCurSong(firstSong);
+        if (playableSongs.length > 0) {
+          setRandom(playableSongs);
         } else {
           alert("No luck, please try again!");
         }
@@ -25,11 +27,7 @@ const MusicPicker = () => {
     return;
   };
 
-  const wait1Second = async() => {
-    return new Promise(resolve => setTimeout(resolve, 1500));
-  };
-
-  const getOnePlayableSongs = () => {
+  const getPlayableSongs = () => {
     return new Promise((resolve, reject) => {
       let playableSongs = [];
       let promises = [];
@@ -124,10 +122,12 @@ const MusicPicker = () => {
   });
 
   useEffect(()=>{
-    const rand = curSong.random;
-    document.body.style.background = getBackgroundCSSColor(rand, false);
-    document.body.style.color = getTextCSSColor(rand);
-  }, [curSong]);
+    if (random.length > 0) {
+      const rand = random[0].random;
+      document.body.style.background = getBackgroundCSSColor(rand, false);
+      document.body.style.color = getTextCSSColor(rand);
+    }
+  }, [random]);
 
   return (
     <>
@@ -135,10 +135,8 @@ const MusicPicker = () => {
       <button onClick={pickRandomMusic} className="todo-button">I FEEL LUCKY</button>
     </form>
     <div className="align-center">
-      <table width="1000px">
-        <tr>
-          <MusicItem allowAdd={false} allowDel={false} curSong={curSong} />
-        </tr>
+      <table className='table-style'>
+        { random.map((cur)=><tr key={cur.id}><MusicItem allowAdd={true} allowDel={false} curSong={cur} /></tr>) }
       </table>
     </div>
     </>

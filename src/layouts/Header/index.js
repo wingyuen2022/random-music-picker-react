@@ -8,7 +8,7 @@ function Header() {
                 <div className="sticky-top">
                     <Link className="custom-button" to="/">Home</Link>
                     <Link className="custom-button" to="/random">Random</Link>
-                    <Link className="custom-button" to="/history">History</Link>
+                    <Link className="custom-button" to="/playlist">Playlist</Link>
                 </div>
             </nav>
             <br />
@@ -16,6 +16,6 @@ function Header() {
     );
 }
 
-// <Link className="custom-button" to="/playlist">Playlist</Link>
+// <Link className="custom-button" to="/history">History</Link>
 
 export default Header;
