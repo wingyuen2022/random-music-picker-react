@@ -79,11 +79,7 @@ const MusicItem = ({allowAdd, allowDel, curSong}) => {
     return html;
   };
 
-  return (
-    <>
-      { renderHTML(curSong) }
-    </>
-  )
+  return renderHTML(curSong);
 }
 
 export default MusicItem;

@@ -6,15 +6,15 @@ import { MusicContext } from '../MusicContext/MusicContext';
 const MusicPicker = () => {
   const {random, setRandom } = useContext(MusicContext);
 
-  const wait1Second = async() => {
-    return new Promise(resolve => setTimeout(resolve, 1500));
+  const wait = async(time) => {
+    return new Promise(resolve => setTimeout(resolve, time));
   };
 
-  async function pickRandomMusic(e) {
+  const pickRandomMusic = async (e) => {
     e.preventDefault();
     await getPlayableSongs().then((playableSongs)=>{
-      console.log(playableSongs);
-      wait1Second().then(()=>{
+      wait(1500).then(()=>{
+        console.log(playableSongs);
         if (playableSongs.length > 0) {
           setRandom(playableSongs);
         } else {
@@ -123,24 +123,29 @@ const MusicPicker = () => {
 
   useEffect(()=>{
     if (random.length > 0) {
+      renderHTML(random);
       const rand = random[0].random;
       document.body.style.background = getBackgroundCSSColor(rand, false);
       document.body.style.color = getTextCSSColor(rand);
     }
   }, [random]);
 
-  return (
-    <>
-    <form>
-      <button onClick={pickRandomMusic} className="todo-button">I FEEL LUCKY</button>
-    </form>
-    <div className="align-center">
-      <table className='table-style'>
-        { random.map((cur)=><tr key={cur.id}><MusicItem allowAdd={true} allowDel={false} curSong={cur} /></tr>) }
-      </table>
-    </div>
-    </>
-  )
+  const renderHTML = (random) => {
+    return (
+      <>
+        <form>
+          <button onClick={pickRandomMusic} className="todo-button">I FEEL LUCKY</button>
+        </form>
+        <div className="align-center">
+          <table className='table-style'>
+            { random.map((cur)=><tr key={cur.id}><MusicItem allowAdd={true} allowDel={false} curSong={cur} /></tr>) }
+          </table>
+        </div>
+        </>
+    );
+  };
+
+  return renderHTML(random);
 }
 
 /*
