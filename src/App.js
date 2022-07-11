@@ -13,8 +13,9 @@ const App = () => {
           <Layout />
           <Routes>
             <Route path="/" element={<Pages.Random />} />
-            <Route path="random" element={<Pages.Random />} />
-            <Route path="playlist" element={<Pages.Playlist />} />
+            <Route path="/song/:songId" element={<Pages.Details />} />
+            <Route path="/random" element={<Pages.Random />} />
+            <Route path="/playlist" element={<Pages.Playlist />} />
             <Route path="*" element={<Pages.NotFound />} />
           </Routes>
           <div className="align-center"><br></br>Random Music Picker React (wingyuen2022)</div>

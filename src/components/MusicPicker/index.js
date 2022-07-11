@@ -4,6 +4,8 @@ import { getBackgroundCSSColor, getTextCSSColor } from '../../util/color.js';
 import { MusicContext } from '../MusicContext/MusicContext';
 
 const MusicPicker = () => {
+  const LIMIT = 350000;
+
   const {random, setRandom } = useContext(MusicContext);
 
   const wait = async(time) => {
@@ -50,7 +52,7 @@ const MusicPicker = () => {
     const newSong = new Promise((resolve, reject) => {
       try {
         const APISong = "https://api.genius.com/songs/";
-        let songID = Math.round(rand*200000);
+        let songID = Math.round(rand*LIMIT);
         const accessToken= "?access_token=CXyFeSBw2lAdG41xkuU3LS6a_nwyxwwCz2dCkUohw-rw0C49x2HqP__6_4is5RPx";
         let url = APISong+songID+accessToken;
         fetch(url).then((res)=>res.json()).then((data)=>{
@@ -79,31 +81,8 @@ const MusicPicker = () => {
           let list = res.results;
           if (list !== undefined && list !== null && typeof list === 'object' && list.length > 0) {
             let id = curSong.id;
-            let title = curSong.full_title;
-            let titleDisplay = title;
-            if (titleDisplay.length > 50) {
-              titleDisplay = titleDisplay.substring(0, 50) + "...";
-            }
-            let album = "";
-            if (curSong.album !== null) {
-              album = curSong.album.full_title;
-            }
-            let coverArt = curSong.song_art_image_url;
-            let infoId = curSong.description_annotation.id;
-            let year = curSong.release_date;
-            if (year !== null) {
-              year = year.substring(0, 4);
-              titleDisplay = titleDisplay + " ( " + year + " ) ";
-            }
             let newSongObject = {
               id: id,
-              apple_music_id: apple_music_id,
-              infoId: infoId,
-              title: title,
-              titleDisplay: titleDisplay,
-              album: album,
-              img: coverArt,
-              year: year,
               random: rand
             };
             resolve(newSongObject);

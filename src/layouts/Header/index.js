@@ -16,6 +16,4 @@ function Header() {
     );
 }
 
-// <Link className="custom-button" to="/history">History</Link>
-
 export default Header;
