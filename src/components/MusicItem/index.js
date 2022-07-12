@@ -69,8 +69,8 @@ const MusicItem = ({allowAdd, allowDel, curSong}) => {
         const playerDiv = document.getElementById("player_" + curSong.id);
         playerDiv.innerHTML = `<iframe id='iframe_${ res.id }' src='https://genius.com/songs/${ res.id }/apple_music_player'></iframe>`;
         wait1Second().then(()=>{
-          const backgroundColor = getBackgroundCSSColor(curSong.random, true);
-          const textColor = getTextCSSColor(curSong.random);
+          const backgroundColor = getBackgroundCSSColor(curSong.id, true);
+          const textColor = getTextCSSColor(curSong.id);
           const contentStyle = document.getElementById("content_" + curSong.id);
           if (contentStyle !== undefined && contentStyle !== null) {
             contentStyle.style.color = textColor;

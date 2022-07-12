@@ -1,6 +1,7 @@
 import Invert from 'invert-color';
 
-export const getBackgroundCSSColor = (rand, lightMode) => {
+export const getBackgroundCSSColor = (raw, lightMode) => {
+    const rand = getRamdomNumber(raw);
     let r = Math.round((rand*3)*256);
     let g = Math.round((rand*5)*256);
     let b = Math.round((rand*7)*256);
@@ -18,7 +19,8 @@ export const getBackgroundCSSColor = (rand, lightMode) => {
     return `rgb(${r}, ${g}, ${b})`;
 };
 
-export const getTextCSSColor = (rand) => {
+export const getTextCSSColor = (raw) => {
+    const rand = getRamdomNumber(raw);
     let r = Math.round((rand*3)*256);
     let g = Math.round((rand*5)*256);
     let b = Math.round((rand*7)*256);
@@ -30,4 +32,15 @@ export const getTextCSSColor = (rand) => {
     g = parseInt( hex.substring( 3, 5 ), 16 );
     b = parseInt( hex.substring( 5, 7 ), 16 );
     return `rgb(${r}, ${g}, ${b})`;
+};
+
+const getRamdomNumber = (raw) => {
+    const digit = (raw.toString()).length;
+    let base = 1;
+    if (digit > 0) {
+        for(let ind = 0; ind < digit; ind++) {
+            base = base * 10;
+        }
+    }
+    return raw/base;
 };

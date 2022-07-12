@@ -83,7 +83,6 @@ const MusicPicker = () => {
             let id = curSong.id;
             let newSongObject = {
               id: id,
-              random: rand
             };
             resolve(newSongObject);
           } else {
@@ -103,9 +102,11 @@ const MusicPicker = () => {
   useEffect(()=>{
     if (random.length > 0) {
       renderHTML(random);
-      const rand = random[0].random;
-      document.body.style.background = getBackgroundCSSColor(rand, false);
-      document.body.style.color = getTextCSSColor(rand);
+      const num = random[0].id;
+      if (typeof num === 'number') {
+        document.body.style.background = getBackgroundCSSColor(num, false);
+        document.body.style.color = getTextCSSColor(num);
+      }
     }
   }, [random]);
 
