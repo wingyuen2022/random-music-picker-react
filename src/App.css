@@ -199,3 +199,8 @@ select {
     background: #ff6f47;
     color: white;
 }
+
+.text-area {
+    width: 500px; 
+    height: 300px;
+}

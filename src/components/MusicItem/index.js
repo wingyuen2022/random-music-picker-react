@@ -48,26 +48,32 @@ const MusicItem = ({allowAdd, allowDel, curSong}) => {
     getMusicDetails(curSong.id).then((res)=>{
       if (res.id !== undefined && res.id !== null) {
         const imgDiv = document.getElementById("image_" + curSong.id);
-        imgDiv.innerHTML = `<a href='https://genius.com/${ res.description_annotation.id }' target='_blank'><img src='${res.song_art_image_url}' width='175px' alt='${res.full_title}'></img></a>`;
+        if (imgDiv !== undefined && imgDiv !== null) {
+          imgDiv.innerHTML = `<a href='https://genius.com/${ res.description_annotation.id }' target='_blank'><img src='${res.song_art_image_url}' width='175px' alt='${res.full_title}'></img></a>`;
+        }
         const contentDiv = document.getElementById("content_" + curSong.id);
-        let albumTitle = "";
-        if (res.album !== null){
-          albumTitle = res.album.full_title
+        if (contentDiv !== undefined && contentDiv !== null) {
+          let albumTitle = "";
+          if (res.album !== null){
+            albumTitle = res.album.full_title
+          }
+          let year = "";
+          if (res.release_date != null) {
+            year = res.release_date.substring(0, 4);
+          }
+          contentDiv.innerHTML = `<h1>${ res.full_title }</h1><p>${ albumTitle }</p><p><b>${ year }</b></p>`;
         }
-        let year = "";
-        if (res.release_date != null) {
-          year = res.release_date.substring(0, 4);
-        }
-        contentDiv.innerHTML = `<h1>${ res.full_title }</h1><p>${ albumTitle }</p><p><b>${ year }</b></p>`;
         const urlDiv = document.getElementById("url_" + curSong.id);
-        let urlHTML = ``;
-        const urlList = res.media;
-        urlList.map((cur)=>{
-          urlHTML = urlHTML + `<a href='${ cur.url }' target='_blank'>${ cur.provider } URL</a><br />`;
-        });
-        urlDiv.innerHTML = urlHTML;
-        const playerDiv = document.getElementById("player_" + curSong.id);
-        playerDiv.innerHTML = `<iframe id='iframe_${ res.id }' src='https://genius.com/songs/${ res.id }/apple_music_player'></iframe>`;
+        if (urlDiv !== undefined && urlDiv !== null) {
+          let urlHTML = ``;
+          const urlList = res.media;
+          urlList.map((cur)=>{
+            urlHTML = urlHTML + `<a href='${ cur.url }' target='_blank'>${ cur.provider } URL</a><br />`;
+          });
+          urlDiv.innerHTML = urlHTML;
+          const playerDiv = document.getElementById("player_" + curSong.id);
+          playerDiv.innerHTML = `<iframe id='iframe_${ res.id }' src='https://genius.com/songs/${ res.id }/apple_music_player'></iframe>`;
+        }
         wait1Second().then(()=>{
           const backgroundColor = getBackgroundCSSColor(curSong.id, true);
           const textColor = getTextCSSColor(curSong.id);
@@ -76,11 +82,13 @@ const MusicItem = ({allowAdd, allowDel, curSong}) => {
             contentStyle.style.color = textColor;
           }
           const urlStyle = document.getElementById("url_" + curSong.id);
-          const urlsStyle = urlStyle.getElementsByTagName("a");
-          for (let ind = 0; ind < urlsStyle.length; ind++) {
-            let cur = urlsStyle[ind];
-            cur.style.color = textColor;
-            cur.style.fontWeight = "bold";
+          if (urlStyle !== undefined && urlStyle !== null) {
+            const urlsStyle = urlStyle.getElementsByTagName("a");
+            for (let ind = 0; ind < urlsStyle.length; ind++) {
+              let cur = urlsStyle[ind];
+              cur.style.color = textColor;
+              cur.style.fontWeight = "bold";
+            }
           }
           const iframeStyle = document.getElementById("iframe_" + curSong.id);
           if (iframeStyle !== undefined && iframeStyle !== null) {
