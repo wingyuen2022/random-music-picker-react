@@ -1,12 +1,14 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import { setPlaylist } from "../../actions";
+import { useDispatch, useSelector } from "react-redux";
 import PlayList from '../../components/PlayList';
-import { MusicContext } from '../../components/MusicContext/MusicContext';
 
 const Playlist = () => {
     const localstorageName = "play-list";
     const navigate = useNavigate();
-    const { playlist, setPlaylist } = useContext(MusicContext);
+    const dispatch = useDispatch();
+    const playlist = useSelector(state => state.playlistReducer);
 
     useEffect(()=>{
         // Load playlist
@@ -14,7 +16,7 @@ const Playlist = () => {
         if (playlistJSONString !== null &&
             typeof playlistJSONString === 'string') {
             let playlist = JSON.parse(playlistJSONString);
-            setPlaylist(playlist);
+            dispatch(setPlaylist(playlist));
         }
     }, []);
 

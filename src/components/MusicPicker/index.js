@@ -1,12 +1,14 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import MusicItem from '../MusicItem';
 import { getBackgroundCSSColor, getTextCSSColor } from '../../util/color.js';
-import { MusicContext } from '../MusicContext/MusicContext';
+import { setRandom } from "../../actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const MusicPicker = () => {
   const LIMIT = 350000;
 
-  const {random, setRandom } = useContext(MusicContext);
+  const dispatch = useDispatch();
+  const random = useSelector(state => state.randomReducer);
 
   const wait = async(time) => {
     return new Promise(resolve => setTimeout(resolve, time));
@@ -18,7 +20,7 @@ const MusicPicker = () => {
       wait(1500).then(()=>{
         console.log(playableSongs);
         if (playableSongs.length > 0) {
-          setRandom(playableSongs);
+          dispatch(setRandom(playableSongs));
         } else {
           alert("No luck, please try again!");
         }

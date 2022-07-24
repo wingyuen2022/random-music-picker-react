@@ -1,11 +1,13 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import { MusicContext } from '../../components/MusicContext/MusicContext';
+import { setPlaylist } from "../../actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const Import = () => {
     const localstorageName = "play-list";
     const navigate = useNavigate();
-    const { playlist, setPlaylist } = useContext(MusicContext);
+    const dispatch = useDispatch();
+    const playlist = useSelector(state => state.playlistReducer);
 
     useEffect(()=>{
         // Load playlist
@@ -13,7 +15,7 @@ const Import = () => {
         if (playlistJSONString !== null &&
             typeof playlistJSONString === 'string') {
             let playlist = JSON.parse(playlistJSONString);
-            setPlaylist(playlist);
+            dispatch(setPlaylist(playlist));
         }
 
         const textArea = document.getElementById("importPlaylist");
@@ -26,7 +28,7 @@ const Import = () => {
         if (songId !== undefined && songId !== null && songId !== "" && songId !== 0) {
             const newPlaylist = [ ...playlist, {"id": songId} ];
             // Save song to playlist
-            setPlaylist(newPlaylist);
+            dispatch(setPlaylist(newPlaylist));
             // Save song to localstorage
             localStorage.setItem(localstorageName, JSON.stringify(newPlaylist));
             alert("Added");
@@ -42,7 +44,7 @@ const Import = () => {
         if (formatValid(newPlaylist)) {
             if (window.confirm("Confirm to replace list in your localstorage?")) {
                 // Save song to playlist
-                setPlaylist(JSON.parse(newPlaylist));
+                dispatch(setPlaylist(JSON.parse(newPlaylist)));
                 // Save song to localstorage
                 localStorage.setItem(localstorageName, newPlaylist);
                 alert("Imported");

@@ -1,15 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { getBackgroundCSSColor, getTextCSSColor } from '../../util/color.js';
-import { MusicContext } from '../MusicContext/MusicContext';
+import { setPlaylist } from "../../actions";
+import { useDispatch, useSelector } from "react-redux";
 import { getMusicDetails } from '../../components/MusicDetails/index.js';
 
 const MusicItem = ({allowAdd, allowDel, curSong}) => {
   const playlistLocalstorageName = "play-list";
 
-  const { playlist, setPlaylist } = useContext(MusicContext);
+  const dispatch = useDispatch();
+  const playlist = useSelector(state => state.playlistReducer);
 
-  const wait1Second = async() => {
-    return new Promise(resolve => setTimeout(resolve, 1000));
+  const wait = async(second) => {
+    return new Promise(resolve => setTimeout(resolve, second*1000));
   };
   
   const addSong = (targetSong) => {
@@ -21,7 +23,7 @@ const MusicItem = ({allowAdd, allowDel, curSong}) => {
       if (!playlist.find(cur => cur.id === targetSong.id)) {
           const newPlaylist = [ ...playlist, targetSong ];
           // Save song to playlist
-          setPlaylist(newPlaylist);
+          dispatch(setPlaylist(newPlaylist));
           // Save song to localstorage
           localStorage.setItem(playlistLocalstorageName, JSON.stringify(newPlaylist));
           const musicDiv = document.getElementById("music_" + targetSong.id);
@@ -37,7 +39,7 @@ const MusicItem = ({allowAdd, allowDel, curSong}) => {
     if (window.confirm("Delete [ " + targetSong.titleDisplay + " ] ?")) {
       const newPlaylistList = playlist.filter((cur) => (cur.id !== targetSong.id));
       // Save song to playlist
-      setPlaylist(newPlaylistList);
+      dispatch(setPlaylist(newPlaylistList));
       // Save song to localstorage
       localStorage.setItem(playlistLocalstorageName, JSON.stringify(newPlaylistList));
       alert("Deleted");
@@ -74,7 +76,7 @@ const MusicItem = ({allowAdd, allowDel, curSong}) => {
           const playerDiv = document.getElementById("player_" + curSong.id);
           playerDiv.innerHTML = `<iframe id='iframe_${ res.id }' src='https://genius.com/songs/${ res.id }/apple_music_player'></iframe>`;
         }
-        wait1Second().then(()=>{
+        wait(1).then(()=>{
           const backgroundColor = getBackgroundCSSColor(curSong.id, true);
           const textColor = getTextCSSColor(curSong.id);
           const contentStyle = document.getElementById("content_" + curSong.id);

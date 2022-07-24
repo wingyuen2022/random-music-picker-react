@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import MusicItem from '../MusicItem';
-import { MusicContext } from '../MusicContext/MusicContext';
+import { useSelector } from "react-redux";
 
 const PlayList = () => {
-  const { playlist } = useContext(MusicContext);
+  const playlist = useSelector(state => state.playlistReducer);
 
   const renderRows = () => {
     return playlist.map((cur) => (<tr key={cur.id}><MusicItem allowAdd={false} allowDel={true} curSong={cur} /></tr>));
