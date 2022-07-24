@@ -116,7 +116,7 @@ const MusicPicker = () => {
     return (
       <>
         <form>
-          <button onClick={pickRandomMusic} className="todo-button">I FEEL LUCKY</button>
+          <button onClick={pickRandomMusic} className="btn btn-light" type="button">I FEEL LUCKY</button>
         </form>
         <div className="align-center">
           <table className='table-style'>

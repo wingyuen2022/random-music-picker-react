@@ -181,25 +181,6 @@ select {
     justify-content: space-between;
 }
 
-.custom-button {
-    padding: 0.5rem;
-    font-size: 2rem;
-    border: none;
-    background: white;
-}
-
-.custom-button {
-    color: #ff6f47;
-    background: #f7fffe;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.custom-button:hover {
-    background: #ff6f47;
-    color: white;
-}
-
 .text-area {
     width: 500px; 
     height: 300px;

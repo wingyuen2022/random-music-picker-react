@@ -75,7 +75,7 @@ const Import = () => {
                                 <form>
                                     <label for="addSong"><h1>Song ID:</h1></label>
                                     <input id="addSong" type="number"></input>
-                                    <button onClick={addSong}>Add Song</button>
+                                    <button onClick={addSong} className="btn btn-light" type="button">Add Song</button>
                                 </form>
                             </div>
                         </td>
@@ -85,7 +85,7 @@ const Import = () => {
                             <form>
                                 <label for="importPlaylist"><h1>Playlist:</h1></label>
                                 <textarea id="importPlaylist" className="text-area"></textarea>
-                                <button onClick={importList}>Import</button>
+                                <button onClick={importList} className="btn btn-light" type="button">Import</button>
                             </form>
                         </td>
                     </tr>
@@ -95,7 +95,7 @@ const Import = () => {
                                 <button onClick={(e)=>{
                                     e.preventDefault();
                                     navigate("/playlist");
-                                }}>Back</button>
+                                }} className="btn btn-light" type="button">Back</button>
                             </form>
                         </td>
                     </tr>

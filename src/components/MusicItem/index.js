@@ -125,8 +125,8 @@ const MusicItem = ({allowAdd, allowDel, curSong}) => {
                   <div id={ "player_" + curSong.id }></div>
                 </td>
                 <td>
-                  <button onClick={()=>addSong(curSong)} className="custom-button" hidden={!allowAdd}>Add</button>
-                  <button onClick={()=>deleteSong(curSong)} className="custom-button" hidden={!allowDel}>Del</button>
+                  <button onClick={()=>addSong(curSong)} className="btn btn-light" type="button" hidden={!allowAdd}>Add</button>
+                  <button onClick={()=>deleteSong(curSong)} className="btn btn-light" type="button" hidden={!allowDel}>Del</button>
                 </td>
                 <td>
                   <hr />

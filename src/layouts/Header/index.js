@@ -6,9 +6,9 @@ function Header() {
         <>
             <nav className="sticky-top">
                 <div className="sticky-top">
-                    <Link className="custom-button" to="/">Home</Link>
-                    <Link className="custom-button" to="/random">Random</Link>
-                    <Link className="custom-button" to="/playlist">Playlist</Link>
+                    <Link className="btn btn-light" to="/">Home</Link>
+                    <Link className="btn btn-light" to="/random">Random</Link>
+                    <Link className="btn btn-light" to="/playlist">Playlist</Link>
                 </div>
             </nav>
             <br />

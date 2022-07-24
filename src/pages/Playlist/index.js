@@ -41,8 +41,8 @@ const Playlist = () => {
                 <table>
                     <tr>
                         <td>
-                            <button className="custom-button" onClick={()=>downloadPlaylist()}>‣ Download Playlist ({ playlist.length })</button>
-                            <button className="custom-button" onClick={()=>importPlaylist()}>‣ Import Playlist</button>
+                            <button className="btn btn-light" onClick={()=>downloadPlaylist()}>‣ Download Playlist ({ playlist.length })</button>
+                            <button className="btn btn-light" onClick={()=>importPlaylist()}>‣ Import Playlist</button>
                         </td>
                     </tr>
                     <tr>
