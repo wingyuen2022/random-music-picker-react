@@ -36,7 +36,7 @@ const MusicItem = ({allowAdd, allowDel, curSong}) => {
   };
 
   const deleteSong = (targetSong) => {
-    if (window.confirm("Delete [ " + targetSong.titleDisplay + " ] ?")) {
+    if (window.confirm("Confirm delete?")) {
       const newPlaylistList = playlist.filter((cur) => (cur.id !== targetSong.id));
       // Save song to playlist
       dispatch(setPlaylist(newPlaylistList));
