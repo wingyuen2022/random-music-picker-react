@@ -27,7 +27,7 @@ const Playlist = () => {
                 type: "text/plain;charset=utf-8"
             });
             const fileSaver = require('file-saver');
-            fileSaver.saveAs(blob, "Historylist");
+            fileSaver.saveAs(blob, "Playlist");
         }
     };
 
